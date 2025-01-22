@@ -22,9 +22,20 @@
 
 A go package for managing gmail Tokens/credentials. 
 
-All credit to the google gmail API devs who provided an example here: https://developers.google.com/gmail/api/quickstart/go
+All credit to the google gmail API devs who provided an example here: 
+https://developers.google.com/gmail/api/quickstart/go
 
-This package was adapted from that example and built in a way that allows the user to import it into any project that uses the gmail API. This package first checks for credentials in a users home directory, if they aren't found it attempts to create the credentials by prompting the use to visit a link and paste the authentication token found at that link into the program. This only needs to be done once. The next version of gmailAPI will include support for multiple users. 
+This package was adapted from that example and built in a way that allows the 
+user to import it into any project that uses the gmail API. This package first 
+checks for credentials in a users home directory, if they aren't found it 
+attempts to create the credentials by prompting the user to visit a link and 
+paste the authentication token found at that link into the program. This only 
+needs to be done once. The next version of gmailAPI will include support for 
+multiple users. 
+
+NOTE: Often, the web page google uses to provide credentials appears broken, 
+and unable to load. Examine the web address carefully, the token can be copied
+from there.
 
 # USE:
 
