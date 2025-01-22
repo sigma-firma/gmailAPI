@@ -1,6 +1,5 @@
 // package gmailAPI is used in applications and libraries that access the gmail
-// api.
-// Most of this code was lightly modified from code found on:
+// api. Most of this code was lightly modified from code found on:
 // https://developers.google.com/gmail/api/quickstart/go
 package gmailAPI
 
@@ -8,7 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+
 	"log"
 	"net/http"
 	"net/url"
@@ -22,7 +21,7 @@ import (
 )
 
 func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
-	b, err := ioutil.ReadFile("credentials.json")
+	b, err := os.ReadFile("credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
@@ -109,5 +108,8 @@ func saveToken(path string, token *oauth2.Token) {
 		log.Fatalf("Unable to cache oauth token: %v", err)
 	}
 	defer f.Close()
-	json.NewEncoder(f).Encode(token)
+	err = json.NewEncoder(f).Encode(token)
+	if err != nil {
+		log.Println(err)
+	}
 }
