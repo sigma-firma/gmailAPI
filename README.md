@@ -107,6 +107,6 @@ https://developers.google.com/gmail/api/quickstart/go
   - Move this file to your working directory and rename it client_secret.json.
 
 
-Also see my other package, [inboxer](https://gitlab.com/sigma-firma/inboxer), 
+Also see our other package, [inboxer](https://gitlab.com/sigma-firma/inboxer), 
 which makes performing basic actions on your inbox much more straight-forward. 
 
