@@ -34,7 +34,7 @@ This package was adapted from that example and built in a way that allows the us
 			"context"
 			"fmt"
 
-			"gitlab.com/hartsfield/gmailAPI"
+			"gitlab.com/sigma-firma/gmailAPI"
 			gmail "google.golang.org/api/gmail/v1"
 	)
 
