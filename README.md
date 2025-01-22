@@ -45,7 +45,7 @@ from there.
 			"context"
 			"fmt"
 
-			"gitlab.com/sigma-firma/gmailAPI"
+			"github.com/sigma-firma/gmailAPI"
 			gmail "google.golang.org/api/gmail/v1"
 	)
 
