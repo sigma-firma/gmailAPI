@@ -61,7 +61,7 @@ from there.
 			// Get a list of your unread messages
 			inbox, err := srv.Users.Messages.List("me").Q("in:UNREAD").Do()
 			if err != nil {
-;;					fmt.Println(err)
+					fmt.Println(err)
 			}
 
 			for _, message := range inbox.Messages {
