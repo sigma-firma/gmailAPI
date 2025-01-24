@@ -9,12 +9,12 @@ import (
 	"fmt"
 
 	"log"
-	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
 
 	gmail "google.golang.org/api/gmail/v1"
+	"google.golang.org/api/option"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -41,7 +41,8 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 		token = getTokenFromWeb(config)
 		saveToken(cacheFile, token)
 	}
-	srv, err := gmail.New(config.Client(ctx, token))
+	// srv, err := gmail.New(config.Client(ctx, token))
+	srv, err := gmail.NewService(ctx, option.WithHTTPClient(config.Client(ctx, token)))
 	if err != nil {
 		log.Fatalf("Unable to retrieve gmail Client %v", err)
 	}
@@ -49,25 +50,27 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 }
 
 // Retrieve a token, saves the token, then returns the generated client.
-func getClient(config *oauth2.Config) *http.Client {
-	// The file token.json stores the user's access and refresh tokens, and is
-	// created automatically when the authorization flow completes for the first
-	// time.
-	tokFile := "token.json"
-	tok, err := tokenFromFile(tokFile)
-	if err != nil {
-		tok = getTokenFromWeb(config)
-		saveToken(tokFile, tok)
-	}
-	return config.Client(context.Background(), tok)
-}
+// func getClient(config *oauth2.Config) *http.Client {
+// 	// The file token.json stores the user's access and refresh tokens, and is
+// 	// created automatically when the authorization flow completes for the first
+// 	// time.
+// 	tokFile := "token.json"
+// 	tok, err := tokenFromFile(tokFile)
+// 	if err != nil {
+// 		tok = getTokenFromWeb(config)
+// 		saveToken(tokFile, tok)
+// 	}
+// 	return config.Client(context.Background(), tok)
+// }
 
 // newTokenizer returns a new token and generates credential file path and
 // returns the generated credential path/filename along with any errors.
 func newTokenizer(tokenCacheDir string) (string, error) {
 	err := os.MkdirAll(tokenCacheDir, 0700)
-	return filepath.Join(tokenCacheDir, url.QueryEscape("gmail-go-quickstart.json")),
-		err
+	return filepath.Join(
+		tokenCacheDir,
+		url.QueryEscape("gmail-go-quickstart.json"),
+	), err
 }
 
 // Retrieves a token from a local file.
@@ -86,7 +89,7 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
 	fmt.Printf("Go to the following link in your browser then type the "+
-		"authorization code: \n%v\n", authURL)
+		"authorization code (copy it from the url path): \n%v\n", authURL)
 
 	var authCode string
 	if _, err := fmt.Scan(&authCode); err != nil {
