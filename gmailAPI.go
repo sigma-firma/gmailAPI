@@ -20,8 +20,8 @@ import (
 	"golang.org/x/oauth2/google"
 )
 
-func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
-	b, err := os.ReadFile("credentials.json")
+func ConnectToService(ctx context.Context, credentialDir string, scope ...string) *gmail.Service {
+	b, err := os.ReadFile(credentialDir + "/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
@@ -31,7 +31,7 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
 
-	cacheFile, err := newTokenizer("./credentials")
+	cacheFile, err := newTokenizer(credentialDir)
 	if err != nil {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
@@ -48,7 +48,6 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 	return srv
 }
 
-// Retrieve a token, saves the token, then returns the generated client.
 // newTokenizer returns a new token and generates credential file path and
 // returns the generated credential path/filename along with any errors.
 func newTokenizer(tokenCacheDir string) (string, error) {
