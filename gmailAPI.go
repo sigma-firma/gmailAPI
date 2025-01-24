@@ -41,7 +41,6 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 		token = getTokenFromWeb(config)
 		saveToken(cacheFile, token)
 	}
-	// srv, err := gmail.New(config.Client(ctx, token))
 	srv, err := gmail.NewService(ctx, option.WithHTTPClient(config.Client(ctx, token)))
 	if err != nil {
 		log.Fatalf("Unable to retrieve gmail Client %v", err)
@@ -50,19 +49,6 @@ func ConnectToService(ctx context.Context, scope ...string) *gmail.Service {
 }
 
 // Retrieve a token, saves the token, then returns the generated client.
-// func getClient(config *oauth2.Config) *http.Client {
-// 	// The file token.json stores the user's access and refresh tokens, and is
-// 	// created automatically when the authorization flow completes for the first
-// 	// time.
-// 	tokFile := "token.json"
-// 	tok, err := tokenFromFile(tokFile)
-// 	if err != nil {
-// 		tok = getTokenFromWeb(config)
-// 		saveToken(tokFile, tok)
-// 	}
-// 	return config.Client(context.Background(), tok)
-// }
-
 // newTokenizer returns a new token and generates credential file path and
 // returns the generated credential path/filename along with any errors.
 func newTokenizer(tokenCacheDir string) (string, error) {
