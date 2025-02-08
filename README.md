@@ -18,6 +18,8 @@
 [//]: # (OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE)
 [//]: # (SOFTWARE.)
 
+# DEPRECATED See: [gsheet](https://github.com/sigma-firma/gsheet) for the same functionality but for people
+
 # gmailAPI
 
 A go package for managing gmail Tokens/credentials. 
